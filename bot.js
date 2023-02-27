@@ -26,6 +26,7 @@ Client.on('ready', async () => {
 // use node-cron to create a job to run every Sunday at 9am
 // cron.schedule format goes '* * * * * *', as follows:
 // 'sec min hour(0-23) dayOfMonth(1-31) month(1-12 || names) dayOfWeek(0-7 || names, 0 and 7 are Sunday)
+//const task = cron.schedule('0 * * * * *', async () => {
 const task = cron.schedule('0 0 13 * * 0', async () => {
 	// let { hour, amPm, timezoneOffsetString } = getTimeInfo();
 
@@ -36,6 +37,7 @@ const task = cron.schedule('0 0 13 * * 0', async () => {
 		// .setTitle(`The time is now ${hour}:00 ${amPm} GMT${timezoneOffsetString}`)
 		
 		textChannel.send("@everyone, don't forget to update your dev logs today!");
+		//textChannel.send("This is an automated test message. If you believe you received this message in error please contact my idiot administrator, @lessthanstellar#7310.");
 	}
 
 	// // check if VC defined in config is empty
