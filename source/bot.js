@@ -57,12 +57,13 @@ client.on(Events.ClientReady, async c => {
 // cron.schedule format goes "* * * * * *", as follows:
 // sec min hour(0-23) dayOfMonth(1-31) month(1-12 || names) dayOfWeek(0-7 || names, 0 and 7 are Sunday)
 //const task = cron.schedule("0 * * * * *", async () => {
+let adminId = "304681340429926400";
 let schedule = "0 0 13 * * 0";
 let testSchedule = "0 * * * * *";
 const task = cron.schedule(testSchedule, async () => {
 	if (channel) {
 		// channel.send("@everyone, don't forget to update your dev logs today!");
-		channel.send("This is an automated test message. If you believe you received this message in error please contact my idiot administrator, @lessthanstellar#7310.");
+		channel.send(`This is an automated test message. If you believe you received this message in error please contact my idiot administrator, @${adminId}.`);
 	}
 });
 
