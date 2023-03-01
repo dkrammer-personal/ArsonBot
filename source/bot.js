@@ -50,20 +50,19 @@ client.on(Events.ClientReady, async c => {
 	console.debug(`Env: ${guild.name} #${channel.name}`);
 
 	c.user.setPresence({ activities: [{ name: "it burn...", type: ActivityType.Watching }], status: "online" });
-	channel.send("ping");
+	//channel.send("ping");
 });
 
 // use node-cron to create a job to run every Sunday at 9am
 // cron.schedule format goes "* * * * * *", as follows:
 // sec min hour(0-23) dayOfMonth(1-31) month(1-12 || names) dayOfWeek(0-7 || names, 0 and 7 are Sunday)
-//const task = cron.schedule("0 * * * * *", async () => {
 let adminId = "304681340429926400";
 let schedule = "0 0 13 * * 0";
 let testSchedule = "0 * * * * *";
-const task = cron.schedule(testSchedule, async () => {
+const task = cron.schedule(schedule, async () => {
 	if (channel) {
-		// channel.send("@everyone, don't forget to update your dev logs today!");
-		channel.send(`This is an automated test message. If you believe you received this message in error please contact my idiot administrator, @${adminId}.`);
+		channel.send("@everyone, don't forget to update your dev logs today!");
+		// channel.send(`This is an automated test message. If you believe you received this message in error please contact my idiot administrator, @${adminId}.`);
 	}
 });
 

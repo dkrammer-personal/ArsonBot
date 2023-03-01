@@ -3,16 +3,43 @@
 pipeline {
     agent any
 
+    environment {
+        def registry = '10.0.0.242:5000'
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
+                echo 'Building Docker image...'
+                dir("source") {
+                    script {
+
+                        echo 'Reading package.json...'
+                        def packageJson = readJSON file: 'package.json'
+                        def version = packageJson.version
+
+                        def imageName = "arsonbot-prod-${version}"
+                        def imageTag = "${BUILD_NUMBER}"
+                        def image = "${imageName}:${imageTag}"
+
+                        echo "Building image ${image}"
+                        bat("docker image build . -t ${image}")
+                        
+                        echo 'Pushing image to registry...'
+                        bat("docker tag ${image} ${registry}/${image}")
+                        bat("docker push ${registry}/${image}")
+                    }
+                }
+
+                echo 'Verifying image pushed correctly...'
+                bat("curl -X GET ${registry}/vs/${imageName}/tags/list")
+                // somehow verify that BUILD_NUMBER is in the list returned above
 
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing not yet implemented.'
+                echo 'Testing not yet implemented. Probably test the image here somehow'
             }
         }
         stage('Deploy') {
